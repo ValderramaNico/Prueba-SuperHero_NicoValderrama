@@ -21,7 +21,7 @@ $(function () {
                           <hr>        
                           <p class="card-text">${heroWeightValue(hero.appearance.weight)}</p>
                           <hr>        
-                          <p class="card-text">${heroNoneValue(hero.biography.aliases)}</p>     //*! no reemplaza el valor por el string de la función 
+                          <p class="card-text">${heroNoneValue(hero.biography.aliases)}</p>
                       </div>
                   </div>
               </div>

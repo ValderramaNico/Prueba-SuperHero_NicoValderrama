@@ -12,14 +12,14 @@ $(function () {
                       <div class="card-body">
                           <h5 class="card-title">Nombre: ${hero.name}</h5>
                           <p class="card-text">Conexiones: ${heroNoneValue(hero.connections["group-affiliation"])}</p>
-                          <p class="card-text">Publicado por: ${heroNoneValue(hero.biography.publisher)}</p>
+                          <p class="card-text">Publicado por: ${hero.biography.publisher}</p>
                           <hr>
                           <p class="card-text">Ocupación: ${heroNoneValue(hero.work.occupation)}</p>
                           <hr>        
                           <p class="Primera aparición: ${heroNoneValue(hero.biography["first-appearance"])}"></p>
-                          <p class="card-text">${heroHeightValue(hero.appearance.height)}</p>
+                          <p class="card-text">${heroHeight(hero.appearance.height)}</p>
                           <hr>        
-                          <p class="card-text">${heroWeightValue(hero.appearance.weight)}</p>
+                          <p class="card-text">${HeroWeight(hero.appearance.weight)}</p>
                           <hr>        
                           <p class="card-text">${heroNoneValue(hero.biography.aliases)}</p>
                       </div>
@@ -27,35 +27,18 @@ $(function () {
               </div>
           </div>`;
 
-  // Section donde se mostrará la card
+    // Section donde se mostrará la card
     let cardContainer = document.querySelector(".card__superHero");
 
     cardContainer.innerHTML = characterCard;
   }
 
+  // Función para manejar los valores "-"
   function heroNoneValue(value) {
     if (value !== "-") {
       return value;
     } else {
-      return "No hay información";
-    }
-  }
-
-  // Función altura sin valor
-  function heroHeightValue(value) {
-    if (value === "0 cm") {
-      return value;
-    } else {
-      return "No hay información";
-    }
-  }
-
-  // Función peso sin valor
-  function heroWeightValue(value) {
-    if (value === "0 kg") {
-      return value;
-    } else {
-      return "No hay información";
+      return "No se tiene información por ahora";
     }
   }
 
@@ -84,9 +67,15 @@ $(function () {
           indexLabelFontSize: 16,
           indexLabel: "{label} - {y}%",
           dataPoints: stats.map(([label, value]) => {
+            let y;
+            if (value !== "null" && value !== "0") {
+              y = Number(value);
+            } else {
+              y = 0;
+            }
             return {
               label: label,
-              y: value !== "null", value : 0, 
+              y: y,
             };
           }),
         },
@@ -116,7 +105,7 @@ $(function () {
       alertPlaceholder.append(wrapper);
     };
 
-  // Alertas
+    // Alertas
 
     if (characterId > 0 && characterId <= 732) {
       // Si el characterId es mayor que 0 y menor o igual a 732
@@ -129,7 +118,7 @@ $(function () {
       );
     }
 
-  // Concatenar la URL con el ID del personaje
+    // Concatenar la URL con el ID del personaje
     let apiUrl =
       "https://superheroapi.com/api.php/3033707663582647/" + characterId;
 
@@ -140,7 +129,7 @@ $(function () {
       dataType: "json",
       success: function (hero) {
         // Llamar a la función para mostrar la tarjeta del héroe
-        
+
         displayHeroCard(hero);
         displayHeroChart(hero.powerstats, hero.name);
       },

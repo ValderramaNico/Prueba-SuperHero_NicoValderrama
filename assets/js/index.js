@@ -11,17 +11,17 @@ $(function () {
                   <div class="col-md-8">
                       <div class="card-body">
                           <h5 class="card-title">Nombre: ${hero.name}</h5>
-                          <p class="card-text">Conexiones: ${hero.connections["group-affiliation"]}</p>
-                          <p class="card-text">Publicado por: ${hero.biography.publisher}</p>
+                          <p class="card-text">Conexiones: ${heroNoneValue(hero.connections["group-affiliation"])}</p>
+                          <p class="card-text">Publicado por: ${heroNoneValue(hero.biography.publisher)}</p>
                           <hr>
-                          <p class="card-text">Ocupación: ${hero.work.occupation}</p>
+                          <p class="card-text">Ocupación: ${heroNoneValue(hero.work.occupation)}</p>
                           <hr>        
-                          <p class="Primera aparición: ${hero.biography["first-appearance"]}"></p>
-                          <p class="card-text">${hero.appearance.height}</p>
+                          <p class="Primera aparición: ${heroNoneValue(hero.biography["first-appearance"])}"></p>
+                          <p class="card-text">${heroHeightValue(hero.appearance.height)}</p>
                           <hr>        
-                          <p class="card-text">${hero.appearance.weight}</p>
+                          <p class="card-text">${heroWeightValue(hero.appearance.weight)}</p>
                           <hr>        
-                          <p class="card-text">${hero.biography.aliases}</p>
+                          <p class="card-text">${heroNoneValue(hero.biography.aliases)}</p>
                       </div>
                   </div>
               </div>
@@ -31,6 +31,32 @@ $(function () {
     let cardContainer = document.querySelector(".card__superHero");
 
     cardContainer.innerHTML = characterCard;
+  }
+
+  function heroNoneValue(value) {
+    if (value !== "-") {
+      return value;
+    } else {
+      return "No hay información";
+    }
+  }
+
+  // Función altura sin valor
+  function heroHeightValue(value) {
+    if (value === "0 cm") {
+      return value;
+    } else {
+      return "No hay información";
+    }
+  }
+
+  // Función peso sin valor
+  function heroWeightValue(value) {
+    if (value === "0 kg") {
+      return value;
+    } else {
+      return "No hay información";
+    }
   }
 
   // Grafico
@@ -57,10 +83,10 @@ $(function () {
           legendText: "{label}",
           indexLabelFontSize: 16,
           indexLabel: "{label} - {y}%",
-          dataPoints: Object.entries(powerStats).map((stat) => {
+          dataPoints: stats.map(([label, value]) => {
             return {
-              label: stat[0],
-              y: stat[1],
+              label: label,
+              y: value !== "null", value : 0, 
             };
           }),
         },

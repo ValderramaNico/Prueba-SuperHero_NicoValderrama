@@ -17,9 +17,9 @@ $(function () {
                           <p class="card-text">Ocupación: ${heroNoneValue(hero.work.occupation)}</p>
                           <hr>        
                           <p class="Primera aparición: ${heroNoneValue(hero.biography["first-appearance"])}"></p>
-                          <p class="card-text">${heroHeight(hero.appearance.height)}</p>
+                          <p class="card-text">${hero.appearance.height}</p>
                           <hr>        
-                          <p class="card-text">${HeroWeight(hero.appearance.weight)}</p>
+                          <p class="card-text">${hero.appearance.weight}</p>
                           <hr>        
                           <p class="card-text">${heroNoneValue(hero.biography.aliases)}</p>
                       </div>

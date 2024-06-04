@@ -33,7 +33,7 @@ $(function () {
     cardContainer.innerHTML = characterCard;
   }
 
-  // Función para manejar los valores "-"
+  // Función para la información que arroja "-" solamente.
   function heroNoneValue(value) {
     if (value !== "-") {
       return value;
